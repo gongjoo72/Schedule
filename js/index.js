@@ -14,6 +14,9 @@ mobileMenu.onclick = () => {
 }
 
 //Pie Chart Rendering Code
+$(function(){
+  $(window).ajaxComplete(function(){
+
 document.addEventListener('DOMContentLoaded', function () {
   let lWidth = 10;
   let tWidth = 8;
@@ -21,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let pieSize = 200;
   let clearSet;
-  const winWidth = window.innerWidth;
+  const winWidth = $(window).Width();
 
   if(winWidth <= 1280 && winWidth > 950){
     pieSize = 150;
@@ -32,8 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     pieSize = 200;
   }
+});
 
-  var chart = window.chart = new EasyPieChart(document.querySelector('.total-chart .chart'), {
+//   var chart = window.chart = new EasyPieChart(document.querySelector('.total-chart .chart'), {
+  $('.total-chart .chart').easyPieChart({
     easing: 'easeOutElastic',
     delay: 3000,
     barColor: '#7c41f5',
@@ -48,8 +53,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  window.addEventListener('resize', function(){
-    const winWidth = window.innerWidth;
+  //window.addEventListener('resize', function(){
+    $(window).resize(function(){
+    const winWidth = $(window).Width();
 
     if(winWidth <= 1280 && winWidth > 950){
       pieSize = 150;
@@ -63,8 +69,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     clearTimeout(clearSet);
     clearSet = setTimeout(function(){
-      document.querySelector('.total-chart .chart canvas').remove();
-      var chart = window.chart = new EasyPieChart(document.querySelector('.total-chart .chart'), {
+      //$('.total-chart .chart canvas').removeData('easyPieChart').remove();
+      //var chart = window.chart = new EasyPieChart(document.querySelector('.total-chart .chart'), {
+      $('.total-chart .chart canvas').easyPieChart({
       easing: 'easeOutElastic',
       delay: 3000,
       barColor: '#7c41f5',
@@ -96,6 +103,8 @@ document.addEventListener('DOMContentLoaded', function () {
     eachSize = 110;
   }
 
+  //$(window).ajaxComplete(function(){
+    
   const poData = [
     {poKind:'.db-pofol', bColor:'#7c41f5', tColor:'#c1a5fa'},
     {poKind:'.api-pofol', bColor:'#ff9062', tColor:'#ffbca1'},
@@ -108,25 +117,51 @@ document.addEventListener('DOMContentLoaded', function () {
     poData.map(value => {
       //console.log(value.b);
       //document.querySelector(value.poKind + ' .chart canvas').remove();
-      var chart = window.chart = new EasyPieChart(document.querySelector(value.poKind + ' .chart'), {
+      //var chart = window.chart = new EasyPieChart(document.querySelector(value.poKind + ' .chart'), {
+      $(value.poKind + ' .chart').easyPieChart({
         easing: 'easeOutElastic',
         delay: 3000,
         barColor: value.bColor,
         trackColor: value.tColor,
         scaleColor: false,
-        lineWidth: lWidth,
-        trackWidth: tWidth,
-        size: eachSize,
+        lineWidth: 5,
+        trackWidth: 5,
+        size: 110,
         lineCap: 'round',
         onStep: function (from, to, percent) {
-        this.el.children[0].innerHTML = Math.round(percent);
+          this.el.children[0].innerHTML = Math.round(percent);
         }
       });
     });
   }
   startPie();
-
+  });
 }); 
 
+//Open Modal for Input Rates
+//1. 버튼 DOM 저장 => index.php 134번줄
+const modalBtn = document.querySelector('#open-modal');
+//5. modal변수에 모달박스 DOM 저장
+const modal = document.querySelector('#myModal');
+//6. X 버튼 DOM 저장
+const times = document.querySelector('#times');
 
+//4. modalBtn을 클릭했을 때 모달 박스 보이기
+// When the user clicks on the button, open the modal
+modalBtn.onclick = function() {
+  modal.style.display = "block";
+}
 
+// When the user clicks on <span> (x), close the modal
+//7. X 버튼 클릭 시 모달창 제거
+// times.onclick = function() {
+//   modal.style.display = "none";
+// }
+
+// When the user clicks anywhere outside of the modal, close it
+//8. 모달 이외 영역 클릭 시 모달창 제거
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
