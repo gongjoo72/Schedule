@@ -79,12 +79,12 @@
             <i class="fa fa-database"></i>
           </div>             
         </div>
-        <div class="each-pofol">
+        <div class="each-pofol" id="each-pofol">
           <div>
             <div class="each-title">
               <h3>Each Portfolio Process Rate</h3>
             </div>
-            <div class="each-graph">
+            <div class="each-graph" id="each-graph">
               <!-- <div class="db-pofol">
                 <span class="chart" data-percent="86">
                   <span class="percent"></span>
@@ -139,18 +139,22 @@
     <div class="modal-content">
       <!-- <span class="close" id="times">&times;</span>
       <p>Some text in the Modal..</p> -->
-      <form action="/schedule/php/sp_rate_insert.php" class="rate-form" name="rate_form"></form>
+      <form action="/schedule/php/sp_rate_insert.php" class="rate-form" name="rate_form">
+                
+      </form>
       <div class="updateBtnBox">
         <button type="button" id="updateBtn">Update Rate</button>
       </div>    
     </div>
     <script>
       const updateBtn = document.querySelector('#updateBtn');
+      //const modal = document.querySelector('#myModal');
       updateBtn.onclick = function(){
         //alert('abc');
         document.rate_form.submit();
         modal.style.display = "none";
       }
+
     </script>
 
   </div>
@@ -161,10 +165,12 @@
   <script src="/schedule/lib/js/lightslider.js"></script>
   <script src="/schedule/lib/js/jquery.easypiechart.min.js"></script>
   <!-- Vanilla JS Code Load -->
+  <script src="/schedule/js/modalAjax.js"></script>
+  <script src="/schedule/js/total_avg.js"></script>
   <script src="/schedule/js/index.js"></script>
   <!-- jQuery Code Load -->
   <script src="/schedule/js/jquery.index.js"></script>
-  <script src="/schedule/js/modalAjax.js"></script>
-  <script src="/scyedule/js/total_avg.js"></script>
+
+
 </body>
 </html>

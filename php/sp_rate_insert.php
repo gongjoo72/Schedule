@@ -28,7 +28,17 @@
     ));
   }
 
-  //var_dump($arr);
   file_put_contents($_SERVER["DOCUMENT_ROOT"].'/schedule/data/sp_rate.json', json_encode($arr));
+
+  // var_dump($abc);
+  // $abc = json_encode($arr);
+  // echo $abc;
+
+  echo "
+    <script>
+      alert('수정이 완료되었습니다!');
+      location.href='/schedule/index.php?key=database';
+    </script>
+  ";
 
 ?>
