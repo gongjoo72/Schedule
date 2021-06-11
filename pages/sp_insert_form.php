@@ -98,6 +98,32 @@
     <!-- End of Main Dashboard Frame -->
   </div>
 
+  <!-- 2. 모달 박스 UI 제작 => style.css 135번줄 -->
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <!-- <span class="close" id="times">&times;</span>
+      <p>Some text in the Modal..</p> -->
+      <form action="/schedule/php/sp_rate_insert.php" class="rate-form" name="rate_form">
+                
+      </form>
+      <div class="updateBtnBox">
+        <button type="button" id="updateBtn">Update Rate</button>
+      </div>    
+    </div>
+    <script>
+      const updateBtn = document.querySelector('#updateBtn');
+      //const modal = document.querySelector('#myModal');
+      updateBtn.onclick = function(){
+        //alert('abc');
+        document.rate_form.submit();
+        modal.style.display = "none";
+      }
+
+    </script>
+
   <!-- Jquery Framework Load -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- Plugins Load -->
@@ -106,6 +132,7 @@
   <!-- Vanilla JS Code Load -->
   <script src="/schedule/js/index.js"></script>
   <!-- jQuery Code Load -->
+  <script src="/schedule/js/modalAjax.js"></script>
   <script src="/schedule/js/total_avg.js"></script>
   <script src="/schedule/js/jquery.index.js"></script>
 </body>

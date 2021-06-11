@@ -12,5 +12,8 @@ $(document).ready(function() {
     adaptiveHeight:true,
   });
 
-  $(".each-btns a").eq(0).trigger("click");
+  //$(".each-btns a").eq(0).trigger("click");
+  $(".each-btns a").click(function(e){
+    e.preventDefault();
+  });
 });
