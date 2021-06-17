@@ -6,13 +6,6 @@ conTxt.forEach(element => {
   element.textContent = cutTxt;
 });
 
-//Mobile Menu Activate
-const mobileMenu = document.querySelector('.mobile-menu');
-
-mobileMenu.onclick = () => {
-  mobileMenu.classList.toggle('active');
-}
-
 //Pie Chart Rendering Code
 $(function(){
   $(window).ajaxComplete(function(){
@@ -136,6 +129,25 @@ $(function(){
   startPie();
 
   });
+
+  //Mobile Menu Activate
+  //  const mobileMenu = document.querySelector('.mobile-menu');
+
+  //  mobileMenu.onclick = () => {
+  //   mobileMenu.classList.toggle('active');
+  // }
+
+  $("mobile-menu").click(function(){
+    $(this).toggleClass("active");
+
+    if($(this).hasClass("active")){
+      $(this).next().removeClass("hide");
+      $(this).next().addClass("show")
+    } else {
+      $(this).next().removeClass("show");
+      $(this).next().addClass("hide")
+    }
+  });
 });
 
 //Open Modal for Input Rates
@@ -153,7 +165,7 @@ modalBtn.onclick = function() {
 }
 
 // When the user clicks on <span> (x), close the modal
-//7. X 버튼 클릭 시 모달창 제거
+//7. X 버튼 클릭 시 모달창 제거 (사용 XXXXXXXX)
 // times.onclick = function() {
 //   modal.style.display = "none";
 // }

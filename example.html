@@ -1,56 +1,25 @@
- <!-- Table Contents on Right side -->
- <section class="table-ui">
-  <div class="new-update">
-    <div class="tit-box">
-      <p>Recent Update</p>
-      <a href="#">More</a>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <!-- 13. 데이터를 삽입할 태그 작성 -->
+  <div id="jsonData"></div>
 
-    <ul class="con-details">
-      <?php
-        include $_SERVER["DOCUMENT_ROOT"]."/connect/db_conn.php";//db 접속정보 로드
-        $sql = "SELECT * FROM sp_table ORDER BY SP_idx DESC LIMIT 5";
-        $ta_result = mysqli_query($dbConn, $sql);
-
-        if(!$ta_result){
-      ?>
-      <li>
-        <p>입력된 일정이 없습니다.</p>
-      </li>
-      <?php
-        } else {
-          while($ta_row=mysqli_fetch_array($ta_result)){
-            $ta_row_cate = $ta_row['SP_cate'];
-            $ta_row_tit = $ta_row['SP_tit'];
-            $ta_row_reg = $ta_row['SP_reg'];
-      ?>
-      <li>
-        <i class="fa fa-<?=$ta_row_cate?>"></i>
-        <div class="con-txt">
-          <p><a href="#"><?=$ta_row_tit?></a></p>
-          <em><?=$ta_row_reg?></em>
-        </div>
-      </li>
-      <?php
-          }
-        }
-      ?>
-    </ul>
+  <!-- 16. 버튼 태그 작성 -->
+  <div class="btns">
+    <button value='database'>데이터베이스</button>
+    <button value='thermometer-half'>API</button>
+    <button value='clone'>리뉴얼</button>
+    <button value='bar-chart-o'>기획</button>
   </div>
-  <div class="each-contents">
-    <div class="each-btns">
-      <button value='database' class="active">DB</button>
-      <button value='thermometer-half'>API</button>
-      <button value='clone'>Renewal</button>
-      <button value='bar-chart-o'>Planning</button>
-    </div>
-    <ul class="con-details" id="con-details">
-      
-    </ul>
-  </div>
-</section>
 
-<script>
+  <script>
 
     function reqListener () {
       //console.log(this.responseText);
@@ -58,12 +27,12 @@
       const jsonObj = JSON.parse(this.responseText);
 
       //14. 데이터 삽입할 태그 변수에 저장
-      const jsonDom = document.querySelector('#con-details');
+      const jsonDom = document.querySelector('#jsonData');
       //console.log(jsonObj);
       //console.log(jsonDom);
 
       //4. abc 함수 정의(내용 정의 X)
-      function callTabs(n){
+      function abc(n){
         //6. abc 함수 테스트 코드 작성
         //console.log("abc"); 
         //7. abc 함수에서 jsonObj 데이터 읽을 수 있는지 테스트
@@ -95,31 +64,22 @@
           //console.log(result[i].sp_idx);
           //탬플릿 문자열 : 빽틱으로 감싼 문자열 - 변수 처리는 ${} 안에 한다
           jsonDom.innerHTML += `
-          <li>
-            <i class="fa fa-${result[i].sp_cate}"></i>
-            <div class="con-txt">
-              <p><a href="#">${result[i].sp_tit}</a></p>
-              <em>${result[i].sp_reg}</em>
-            </div>
-          </li>
+            <p>${result[i].sp_idx}</p>
+            <p>${result[i].sp_cate}</p>
+            <p>${result[i].sp_tit}</p>
           `;
         }
       }
 
       //17. 버튼 태그 btns 변수에 저장
-      const btns = document.querySelectorAll('.each-btns button');
-      //console.log(btns);
+      const btns = document.querySelectorAll('.btns button');
+      console.log(btns);
 
       //18. btns 반복문으로 읽음
       btns.forEach(value => {
-        //console.log(value);
+        console.log(value);
         //19. 각각의 버튼 클릭 함수 작성
         value.addEventListener('click', function(){
-          //console.log(btns);
-          
-          btns.forEach(btnItem => {
-            btnItem.className = "";
-          });
           //20. 클릭한 버튼 this로 확인
           //console.log(this);
           //21. 버튼에 value 속성 추가 후 추가된 value의 값 확인
@@ -128,13 +88,11 @@
           jsonDom.innerHTML = "";
           //22. value값 itemVal 변수에 저장
           const itemVal = this.getAttribute('value');
-          this.className = "active";
           //23. abc 함수 클릭 함수 안으로 이동 후 파라미터를 itemVal 변수로 변경
-          callTabs(itemVal);
+          abc(itemVal);
         });
       });
 
-      callTabs("database");
       //5. abc 함수 호출
       //abc();
     }
@@ -147,3 +105,5 @@
     oReq.send();
 
   </script>
+</body>
+</html>

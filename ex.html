@@ -65,5 +65,16 @@
       slider(0);
     });
   </script>
+
+  <script>
+    $.ajax({
+      url: "/schedule/php/go_camping.php", 
+      success: function(result){
+        //console.log(result);
+        const jsonString = JSON.parse(result);
+        console.log(jsonString);
+      }
+    });
+  </script>
 </body>
 </html>

@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="/schedule/css/animation.css">
 
   <!-- Media Query CSS Link -->
-  <link rel="stylesheet" href="/schedule/css/Media.css">
+  <link rel="stylesheet" href="/schedule/css/media.css">
 
   <script defer>
     const hostname = window.location.href;
@@ -68,11 +68,11 @@
 
         <div class="detail-board">
           <div class="board-btns">
-            <a href="#">All</a>
-            <a href="#">Database</a>
-            <a href="#">API</a>
-            <a href="#">Renewal</a>
-            <a href="#">Planning</a>
+            <a href="?key=all" class="active">All</a>
+            <a href="?key=database">Database</a>
+            <a href="?key=thermometer-half">API</a>
+            <a href="?key=clone">Renewal</a>
+            <a href="?key=bar-chart-o">Planning</a>
           </div>
 
           <div class="board-table">
@@ -86,29 +86,22 @@
               </li>
 
               <?php
-                include $_SERVER["DOCUMENT_ROOT"]."/connect/db_conn.php";//db 접속정보 로드
-                $sql = "SELECT * FROM sp_table ORDER BY SP_idx DESC LIMIT 5";
-                $board_result = mysqli_query($dbConn, $sql);
-
-                while($board_row=mysqli_fetch_array($board_result)){
-                  $board_row_idx = $board_row['SP_idx'];
-                  $board_row_cate = $board_row['SP_cate'];
-                  $board_row_tit = $board_row['SP_tit'];
-                  $board_row_reg = $board_row['SP_reg'];
-              ?>
-
-              <li class="board-contents">
-                <span><?=$board_row_idx?></span>
-                <span><?=$board_row_cate?></span>
-                <span><a href="#"><?=$board_row_tit?></a></span>
-                <span><?=$board_row_reg?></span>
-                <span><a href="/schedule/php/sp_delete.php?del_idx=<?=$board_row_idx?>" class="del-btn">삭제</a></span>
-              </li>
-
-              <?php
-                }
+                $include_path = $_GET['key'];
+                include $_SERVER["DOCUMENT_ROOT"].'/schedule/include/tabs/'.$include_path.'.php';
               ?>
             </ul>
+          </div>
+          <!-- End of board-table -->
+          <div class="board-table-btn">
+            <!-- <form action="#" class="search-box">
+              <select>
+                <option value="">아이디</option>
+                <option value="">제목</option>
+              </select>
+              <input type="text">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form> -->
+            <button type="button" class="more-btn">더보기</button>
           </div>
         </div>
         
@@ -129,7 +122,51 @@
   <script src="/schedule/js/index.js"></script>
   <!-- jQuery Code Load -->
   <script src="/schedule/js/jquery.index.js"></script>
+  
+  <script>
+    $(function(){
+      //더보기 버튼 기능
+      $(".board-contents").hide();
+      $(".board-contents").slice(0, 5).show();
 
+      $(".more-btn").click(function(){
+        //console.log($(".board-contents:hidden").length);
+        $(".board-contents:hidden").slice(0, 5).show();
+      });
+
+      //테이블 탭 활성화 기능
+      
+    });
+  </script>
+  <script>
+    const pathName = window.location.href;
+    const tabBtns = document.querySelectorAll('.board-btns a');
+    const tabElements = ['all', 'database', 'thermometer-half', 'clone', 'bar-chart-o'];
+    console.log(tabBtns);
+
+    for(let i = 0; i < tabBtns.length; i++){
+      tabBtns[i].classList.remove('active');
+      if(pathName.includes(tabElements[i])){
+        tabBtns[i].classList.add('active');
+      }
+    }
+
+    // tabBtns.forEach(btn => {
+    //   btn.classList.remove('active');
+    // });
+
+    // if(pathName.includes('all')){
+    //   tabBtns[0].classList.add('active');
+    // } else if(pathName.includes('database')){
+    //   tabBtns[1].classList.add('active');
+    // } else if(pathName.includes('api')){
+    //   tabBtns[2].classList.add('active');
+    // } else if(pathName.includes('renewal')){
+    //   tabBtns[3].classList.add('active');
+    // } else if(pathName.includes('planning')){
+    //   tabBtns[4].classList.add('active');
+    // }
+  </script>
 
 </body>
 </html>
