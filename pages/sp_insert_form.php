@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1" />
   <title>Schedule Insert</title>
 
   <!-- Favicon Link -->
@@ -94,30 +94,9 @@
         include $_SERVER['DOCUMENT_ROOT']."/schedule/include/table_ui.php";
       ?>
 
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
-
-          <!-- Modal content -->
-          <div class="modal-content">
-            <!-- <span class="close" id="times">&times;</span>
-            <p>Some text in the Modal..</p> -->
-            <form action="/schedule/php/sp_rate_insert.php" class="rate-form" name="rate_form">
-                      
-            </form>
-            <div class="updateBtnBox">
-              <button type="button" id="updateBtn">Update Rate</button>
-            </div>    
-          </div>
-          <script>
-            const updateBtn = document.querySelector('#updateBtn');
-            //const modal = document.querySelector('#myModal');
-            updateBtn.onclick = function(){
-              //alert('abc');
-              document.rate_form.submit();
-              modal.style.display = "none";
-            }
-
-          </script>
+      <?php
+        include $_SERVER['DOCUMENT_ROOT']."/schedule/include/modal.php";
+      ?>
 
         </div>
 

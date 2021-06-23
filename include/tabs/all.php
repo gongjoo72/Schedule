@@ -1,13 +1,14 @@
 <?php
   $tabIdx = $_GET['key'];
-
   include $_SERVER["DOCUMENT_ROOT"]."/connect/db_conn.php";//db 접속정보 로드
 
   if($tabIdx == "all"){
-    $board_result = "SELECT * FROM sp_table ORDER BY SP_idx DESC";
+    $sql = "SELECT * FROM sp_table ORDER BY SP_idx DESC"; 
   } else {
-    $board_result = "SELECT * FROM sp_table WHERE SP_cate = '{tabIdx}' ORDER BY SP_indx DESC"
+    $sql = "SELECT * FROM sp_table WHERE SP_cate = '{$tabIdx}' ORDER BY SP_idx DESC";
   }
+
+  $board_result = mysqli_query($dbConn, $sql);
 
   //var_dump($board_result);
 
@@ -21,9 +22,12 @@
 <li class="board-contents">
   <span><?=$board_row_idx?></span>
   <span><?=$board_row_cate?></span>
-  <span><a href="#"><?=$board_row_tit?></a></span>
+  <span><a href="/schedule/pages/sp_detail_view.php?pageNum=<?=$board_row_idx?>"><?=$board_row_tit?></a></span>
   <span><?=$board_row_reg?></span>
-  <span><a href="/schedule/php/sp_delete.php?del_idx=<?=$board_row_idx?>" class="del-btn">삭제</a></span>
+  <span>
+    <a href="/schedule/php/sp_delete.php?del_idx=<?=$board_row_idx?>" class="del-btn txt">삭제</a>
+    <a href="/schedule/php/sp_delete.php?del_idx=<?=$board_row_idx?>" class="del-btn icon"><i class="fa fa-times"></i></a>
+  </span>
 </li>
 
 <?php

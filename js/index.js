@@ -131,21 +131,21 @@ $(function(){
   });
 
   //Mobile Menu Activate
-  //  const mobileMenu = document.querySelector('.mobile-menu');
+  // const mobileMenu = document.querySelector('.mobile-menu');
 
-  //  mobileMenu.onclick = () => {
+  // mobileMenu.onclick = () => {
   //   mobileMenu.classList.toggle('active');
   // }
 
-  $("mobile-menu").click(function(){
+  $(".mobile-menu").click(function(){
     $(this).toggleClass("active");
-
-    if($(this).hasClass("active")){
-      $(this).next().removeClass("hide");
-      $(this).next().addClass("show")
+    
+    if($(this).hasClass("active")){  
+      $(this).next().removeClass("hide");   
+      $(this).next().addClass("show");
     } else {
-      $(this).next().removeClass("show");
-      $(this).next().addClass("hide")
+      $(this).next().removeClass("show");   
+      $(this).next().addClass("hide");
     }
   });
 });
